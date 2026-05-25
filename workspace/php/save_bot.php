@@ -8,8 +8,6 @@ $bot_id = $_POST['bot_id'];
 $user = $_POST['user'];
 $id_user = $_POST['id_user'];
 
-// $bot_token = "5928781607:AAGuPSjim3sptsEfxCe2eJ06mNGiniFzgsA";
-
 $bot_token = "const token = '$bot_token'; 
 const bot = new TelegramApi(token, {polling: true}); \r\n";
 
@@ -89,31 +87,6 @@ $bot_message .= "return bot.sendMessage(chatId, 'Такой команды не�
 
 $bot_content .= $bot_commands;
 
-
-// $bot_message = "bot.on('message', async msg => {
-//         const text = msg.text;
-//         const chatId = msg.chat.id;
-
-//         try {
-//             if (text === '/start') {
-//                 // await UserModel.create({chatId})
-//                 await bot.sendSticker(chatId, 'https://tlgrm.eu/_/stickers/6f7/267/6f7267ed-f46d-3c4d-afa8-bfbff512b637/192/13.webp')
-//                 return bot.sendMessage(chatId, `Добро пожаловать в телеграм бота ...`);
-//             }
-//             if (text === '/info') {
-//                 // const user = await UserModel.findOne({chatId})
-//                 return bot.sendMessage(chatId, 'Тебя зовут '+msg.from.first_name+' '+msg.from.last_name+'.');
-//             }
-//             if (text === '/game') {
-//                 return startGame(chatId);
-//             }
-//             return bot.sendMessage(chatId, 'Я тебя не понимаю, попробуй еще раз!)');
-//         } catch (e) {
-//             return bot.sendMessage(chatId, 'Произошла какая то ошибочка!)'+ e);
-//         }
-
-//     }); \r\n";
-
 $bot_content .= $bot_message;
 
 $bot_content .= $bot_callbackQuery;
@@ -128,16 +101,9 @@ $bot_content .= "start()";
 $path = "../bots/".$id_user."/".$bot_id;
 $path = str_replace(' ', '', $path);
 
-// $bot_id = 3;
-// $user = 2;
-
-// $path = "../bots/".$user."/".$bot_id;
-
-if(!is_dir($path)){
+if (!is_dir($path)) {
 	mkdir($path, 0777, true);	
 }
-echo(file_put_contents($path."/index.js", $head.$bot_token.$bot_content));
-// echo $cmds;
-echo($cmds[0][3][0][0]);
+echo(file_put_contents($path . "/index.js", $head . $bot_token . $bot_content));
 
 ?>

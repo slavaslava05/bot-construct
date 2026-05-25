@@ -1,0 +1,4 @@
+php/config.local.php
+workspace/bots/
+node_modules/
+*.log

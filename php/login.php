@@ -5,8 +5,6 @@
 
 $safe_login=$_POST['login'];
 $safe_pass=$_POST['pass'];
-// $safe_login="slava";
-// $safe_pass="12345";
 $safe_pass=md5($safe_pass);
 $count=0;
 require_once('connect.php');

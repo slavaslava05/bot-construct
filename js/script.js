@@ -21,7 +21,6 @@ window.onload = function(){
 		if(login == '' || pass == ''){
 			$("#login-form .error").text("Заполните форму")
 		}else{
-			console.log("data");
 			$.ajax({
 				url:"php/login.php",
 				method:"POST",
@@ -41,7 +40,6 @@ window.onload = function(){
 					
 				},
 				done:function(){
-					console.log(data);
 				}
 			})
 			
@@ -61,7 +59,6 @@ window.onload = function(){
 				method:"POST",
 				data:{login:login,pass:pass},
 				success:function(data){
-					console.log(data);
 					if(data == "True"){
 						$("#reg-notice-form").modal({});
 					}else{

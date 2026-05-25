@@ -17,7 +17,6 @@ $(window).on('load', function () {
 			if ($(e.target).hasClass('cmd_field')) {
 				$(e.target).css("transform", "translate(-10px, -10px)");
 				$(e.target).css({ '--opacity': "1", "--transform": "translate(10px,10px)" });
-				console.log($(e.target));
 				// $(e.target).css("box-shadow", "10px 12px 3px 1px rgb(0 0 0 / 30%)");
 				$(e.target).addClass("active");
 			} else {
@@ -33,7 +32,6 @@ $(window).on('load', function () {
 			$(".cmd_field").removeClass("active");
 			$(".cmd_field").css({ '--opacity': "0", "--transform": "translate(0px,0px)" });
 		}
-		// console.log($(e.target).parents('.cmd_field'))
 	})
 	// ADMIN
 
@@ -47,9 +45,7 @@ $(window).on('load', function () {
 				data: { uid: $(this).data("user"), bid: $(this).data("id") },
 				success: function (data) {
 					// output = data;
-					// console.log(data);
 					$(obj).parent().find(".users_bot_row_info__bot_status").html("<div class='bot_status_enabled'>Включен</div>");
-					console.log($(obj).parent());
 				}
 			})
 		})
@@ -62,9 +58,7 @@ $(window).on('load', function () {
 				method: "POST",
 				data: { uid: $(this).data("user"), bid: $(this).data("id") },
 				success: function (data) {
-					// console.log(data);
 					$(obj).parent().find(".users_bot_row_info__bot_status").html("<div class='bot_status_disabled'>Выключен</div>");
-					console.log($(obj).parent());
 				}
 			})
 		})
@@ -73,7 +67,6 @@ $(window).on('load', function () {
 				url: "ssh_query/kill_pm.php",
 				method: "POST",
 				success: function (data) {
-					console.log("Proccesses killed");
 				}
 			})
 		});
@@ -94,7 +87,6 @@ $(window).on('load', function () {
 			url: "ssh_query/run_cmd.php",
 			data: { cmd: $("prompt_command_text").val() },
 			success: function (data) {
-				console.log(data);
 			}
 		})
 	})
@@ -110,7 +102,6 @@ $(window).on('load', function () {
 	function setEvent_toggleOption() {
 		$(".answer_checkbox").off('change');
 		$(".answer_checkbox").change(function () {
-			console.log($(this).attr('value'));
 			if (this.checked) {
 				if ($(this).attr('value') == 'opt_answer_pic')
 					$(this).parents().eq(5).find(".answer_pic").removeClass("hidden");
@@ -130,13 +121,11 @@ $(window).on('load', function () {
 		$(".add_btn").click(function () {
 			$(this).parent().append("<div class='btn_row'><input value='Кнопка' class='text-field btn_row_text' placeholder='Текст в кнопке'><div class='btn_action_container'><select class='text-field btn_action' value='url'><option value='url'>Переход по URL</option><option value='cmd'>Команда</option></select><input class='text-field action_cmd hidden' placeholder='Команда'><input class='text-field action_url' value='google.com' placeholder='Ссылка URL'></div><i class='fa-solid fa-trash'></i></div>");
 			let cmd_id = $(this).parent().parent().data("id");
-			console.log(cmd_id);
 			$.ajax({
 				url: "php/add_btn.php",
 				method: "POST",
 				data: { cmd_id: cmd_id },
 				success: function (data) {
-					console.log(data);
 					updateBotDB();
 					// setTimeout(getBot,200);
 				}
@@ -156,9 +145,6 @@ $(window).on('load', function () {
 			$(this).parent().find(".btn_row .action_url").off('change');
 			$(this).parent().find(".action_url").change(function(){
 				let link  = $(this).val();
-				console.log(link);
-				console.log(validateURL(link));
-				console.log($(this));
 				if(!validateURL(link)){
 					$(this).addClass("nonvalid");
 				}else{
@@ -175,11 +161,9 @@ $(window).on('load', function () {
 					method: "POST",
 					data: { btn_id: btn_id },
 					success: function (data) {
-						console.log(data);
 						// getBot();
 					}
 				})
-				console.log("BTN DELETED");
 			})
 		})
 
@@ -193,11 +177,9 @@ $(window).on('load', function () {
 				method: "POST",
 				data: { btn_id: btn_id },
 				success: function (data) {
-					console.log(data);
 					// getBot();
 				}
 			})
-			console.log("BTN DELETED");
 		})
 	}
 	function setCheckInputs(){
@@ -223,7 +205,6 @@ $(window).on('load', function () {
 						$(this).removeClass("error_field");
 					}
 				}
-				console.log(text);
 			}
 			
 		})
@@ -300,7 +281,6 @@ $(window).on('load', function () {
 
 					this_val = this_val.trim();
 					// $(this).parent().find("textarea.answer_text").attr("te-text","\\n"+this_text);
-					// console.log(this_text);
 
 					$(this).parent().find("textarea.answer_text").text(this_text);
 					$(this).parent().find("textarea.answer_text").val(this_text);
@@ -319,7 +299,6 @@ $(window).on('load', function () {
 						method: "POST",
 						data: { bot_id: bot_id },
 						success: function (data) {
-							console.log(data);
 							// let cmd_number = $(".cmd_field").length + 1;
 							// $(".constructor").append("<div class='cmd_field' data-id="+data['id']+"><div class='cmd_field_number'>"+cmd_number+"</div><div class='cmd_field_main'><input class='text-field cmd_name' value='start'><div class='cmd_desc'><input class='text-field' value='Описание команды'></div><i class='fa-solid fa-trash'></i></div><h4>Ответ</h4> <div class='answer_container'><textarea class='answer_text text-field' value='Текст' placeholder='Текст ответа команды'>Текст</textarea><input type='file' class='answer_pic text-field hidden' value='' multiple accept='.png, .jpg, .jpeg'><select class='answer_menu text-field hidden' value=''><option value=''>Выбор меню</option><option value=''>Меню1</option><option value=''>Меню2</option></select></div><h4>Кнопки</h4> <div class='btn_container'><div class='add_btn button add_button'>Добавить кнопку</div><div class='btn_header'><h4>Текст</h4><h4>Действие</h4></div></div></div>");
 							updateBotDB();
@@ -353,9 +332,6 @@ $(window).on('load', function () {
 				
 				$(".action_url").change(function(){
 					let link  = $(this).val();
-					console.log(link);
-					console.log(validateURL(link));
-					console.log($(this));
 					if(!validateURL(link)){
 						$(this).addClass("nonvalid");
 					}else{
@@ -390,7 +366,6 @@ function setEvent_addBot() {
 			method: "POST",
 			data: { id: id },
 			success: function (data) {
-				console.log(data);
 			}
 		})
 		$(this).parent().parent().remove();
@@ -406,7 +381,6 @@ function setEvent_addCmd() {
 			method: "POST",
 			data: { id: $(this).parent().parent().data('id') },
 			success: function (data) {
-				console.log(data);
 			}
 		})
 	});
@@ -422,7 +396,6 @@ function getBots() {
 		success: function (data) {
 			$(".bots_container").html(data);
 			setEvent_addBot();
-				// console.log(data)
 		}
 	})
 }
@@ -437,7 +410,6 @@ getBots();
 	// 	$(this).parent().parent().append("text");
 	// })
 $(".answer_checkbox").change(function () {
-	console.log($(this).attr('value'));
 })
 setEvent_addCmd();
 setEvent_addBtn();
@@ -475,7 +447,6 @@ $(".add_bot").click(function () {
 		method: "POST",
 		data: { id_user: id_user },
 		success: function (data) {
-			console.log(data);
 			getBots();
 		}
 	})
@@ -486,7 +457,6 @@ $(".add_bot").click(function () {
 
 $(".btn_row .fa-trash").click(function () {
 	$(this).parent().remove();
-	console.log("BTN DELETED")
 })
 	// DD BTN
 function DropDown(el) {

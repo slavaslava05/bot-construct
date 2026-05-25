@@ -23,7 +23,6 @@ function updateBotDB(){
 		
 
 		if(btn_list.length > 0){
-			console.log(btn_list);
 			btn_list.each(function(j,btn){
 				let btn_id = $(btn).data("id");
 				let btn_text = $(btn).find(".btn_row_text").val();
@@ -46,13 +45,11 @@ function updateBotDB(){
 			cmds.push([name, desc, answer_text, btns, cmd_id]);
 
 	})
-	console.log(cmds);
 	$.ajax({
 		url:"php/update_bot.php",
 		method:"POST",
 		data:{id_user:id_user,user:user,bot_id:bot_id,bot_name:bot_name,bot_token:bot_token,bot_desc:bot_desc, cmds:cmds},
 		success:function(data){
-			console.log(data);
 		}
 	})
 }
@@ -98,11 +95,9 @@ $(window).on('load', function () {
 			// answer_text= answer_text.replaceAll("&nbsp;"," ");
 			// answer_text = answer_text.replaceAll("<div>","");
 			// answer_text = answer_text.replaceAll("</div>","");
-				console.log(answer_text);
 
 				let btns = []
 				let btn_list = $(el).find(".btn_row");
-				console.log(btn_list);
 
 				if(btn_list.length > 0){
 					btn_list.each(function(j,btn){
@@ -127,14 +122,12 @@ $(window).on('load', function () {
 				if(name != undefined) cmds.push([name, desc, answer_text, btns, cmd_id]);
 
 			})
-			console.log(cmds);
 
 			$.ajax({
 				url:"php/save_bot.php",
 				method:"POST",
 				data:{id_user:id_user,user:user,bot_id:bot_id,bot_name:bot_name,bot_token:bot_token, cmds:cmds},
 				success:function(data){
-				// console.log(data);
 				}
 			})
 
@@ -144,7 +137,6 @@ $(window).on('load', function () {
 				method:"POST",
 				data:{id_user:id_user,user:user,bot_id:bot_id,bot_name:bot_name,bot_token:bot_token,bot_desc:bot_desc, cmds:cmds},
 				success:function(data){
-				// console.log(data);
 				}
 			})
 		} 
@@ -163,10 +155,8 @@ $(window).on('load', function () {
 			method:"POST",
 			data:{uid:id_user,bid:bot_id},
 			success:function(data){
-				console.log(data);
 				$(".start_bot_user").addClass("hidden");
 				$(".stop_bot_user").removeClass("hidden");
-				// console.log($(obj).parent());
 			}
 		})
 	})
@@ -179,10 +169,8 @@ $(window).on('load', function () {
 			method:"POST",
 			data:{uid:id_user,bid:bot_id},
 			success:function(data){
-					// console.log(data);
 				$(".start_bot_user").removeClass("hidden");
 				$(".stop_bot_user").addClass("hidden");
-				// console.log($(obj).parent());
 			}
 		})
 	})
